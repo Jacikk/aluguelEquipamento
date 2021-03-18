@@ -3,6 +3,7 @@ package com.uniamerica.aluguelEquipamento.model;
 import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Itens {
 
     @Id

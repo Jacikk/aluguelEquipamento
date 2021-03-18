@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Categorias {
+public class Produtos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,8 +12,15 @@ public class Categorias {
 
     private String name;
 
+    private String descricao;
+
     @ManyToOne
     private Itens item;
+
+    private Boolean disponivel;
+
+    @ManyToOne
+    private Categorias categoria;
 
     public long getId() {
         return id;
@@ -31,11 +38,35 @@ public class Categorias {
         this.name = name;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     public Itens getItem() {
         return item;
     }
 
     public void setItem(Itens item) {
         this.item = item;
+    }
+
+    public Boolean getDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(Boolean disponivel) {
+        this.disponivel = disponivel;
+    }
+
+    public Categorias getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categorias categoria) {
+        this.categoria = categoria;
     }
 }
