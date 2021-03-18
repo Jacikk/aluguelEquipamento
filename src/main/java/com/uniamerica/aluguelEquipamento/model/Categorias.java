@@ -3,14 +3,16 @@ package com.uniamerica.aluguelEquipamento.model;
 import javax.persistence.*;
 
 @Entity
-public class Emprestimos {
+public class Categorias {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private String name;
+
     @ManyToOne
-    private Atendentes atendente;
+    private Itens item;
 
     public long getId() {
         return id;
@@ -20,13 +22,19 @@ public class Emprestimos {
         this.id = id;
     }
 
-    public Atendentes getAtendente() {
-        return atendente;
+    public String getName() {
+        return name;
     }
 
-    public void setAtendente(Atendentes atendente) {
-        this.atendente = atendente;
+    public void setName(String name) {
+        this.name = name;
     }
 
+    public Itens getItem() {
+        return item;
+    }
 
+    public void setItem(Itens item) {
+        this.item = item;
+    }
 }
