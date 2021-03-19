@@ -5,6 +5,8 @@ import com.uniamerica.aluguelEquipamento.repository.AtendentesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AtendenteService {
 
@@ -18,4 +20,9 @@ public class AtendenteService {
     public Atendentes createAtendente(Atendentes atendente) {
         return atendentesRepository.save(atendente);
     }
+
+    public List<Atendentes> getByName(String nome) {
+        return atendentesRepository.findByNome(nome);
+    }
+
 }
