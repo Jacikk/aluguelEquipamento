@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface AtendentesRepository extends JpaRepository<Atendentes, Long> {
 
-    List<Atendentes> findByNome(String nome);
+    List<Atendentes> findAllByNome (String nome);
 
 }
