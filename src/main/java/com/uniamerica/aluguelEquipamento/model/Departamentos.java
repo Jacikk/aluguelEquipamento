@@ -3,28 +3,29 @@ package com.uniamerica.aluguelEquipamento.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Departamentos")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Departamentos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    private String name;
+    private String nome;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }
