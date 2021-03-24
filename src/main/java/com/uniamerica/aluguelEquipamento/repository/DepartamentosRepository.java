@@ -10,6 +10,6 @@ import java.util.List;
 public interface DepartamentosRepository extends JpaRepository<Departamentos, Long> {
 
     List<Departamentos> findByNome(String nome);
-    List<Departamentos> findById(Long id);
+
 
 }

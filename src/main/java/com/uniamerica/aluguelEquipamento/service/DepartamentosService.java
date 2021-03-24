@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class DepartamentosService {
 
@@ -28,8 +30,12 @@ public class DepartamentosService {
         return departamentosRepository.findByNome(nome);
     }
 
-    public List<Departamentos> getById(Long id) {
-        return departamentosRepository.findById(id);
+    public Departamentos getById(Long id) {
+        Optional<Departamentos> departamento = departamentosRepository.findById(id);
+        if(departamento.isPresent()){
+            return departamento.get();
+        }
+        return null;
     }
 
     public Departamentos createDepartamentos(Departamentos departamentos) {

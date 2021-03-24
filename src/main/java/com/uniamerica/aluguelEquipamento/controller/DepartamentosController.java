@@ -44,12 +44,12 @@ public class DepartamentosController {
     @GetMapping("id/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id){
 
-        List<Departamentos> listNome = departamentosService.getById(id);
+        Departamentos departamento = departamentosService.getById(id);
 
-        if(!listNome.isEmpty()){
-            return new ResponseEntity<>(listNome, null, HttpStatus.OK);
+        if(departamento != null){
+            return new ResponseEntity<>(departamento, null, HttpStatus.OK);
         }
-        return new ResponseEntity<>(listNome, null, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(new Departamentos(), null, HttpStatus.NO_CONTENT);
 
     }
 
