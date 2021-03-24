@@ -40,4 +40,16 @@ public class AtendentesService {
             return null;
         }
     }
+
+    public Atendentes findByEmail(String email) {
+        return atendentesRepository.findByEmail(email);
+    }
+
+    public Atendentes findByCpf(String cpf) {
+        return atendentesRepository.findByCpf(cpf);
+    }
+
+    public Atendentes findByRg(String rg) {
+        return atendentesRepository.findByRg(rg);
+    }
 }

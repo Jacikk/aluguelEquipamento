@@ -11,4 +11,9 @@ public interface AtendentesRepository extends JpaRepository<Atendentes, Long> {
 
     List<Atendentes> findAllByNome (String nome);
 
+    Atendentes findByEmail (String email);
+
+    Atendentes findByCpf (String cpf);
+
+    Atendentes findByRg (String rg);
 }
