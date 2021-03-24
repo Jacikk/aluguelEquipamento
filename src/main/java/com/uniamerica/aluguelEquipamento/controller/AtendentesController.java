@@ -8,10 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/atendentes")
-
 public class AtendentesController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class AtendentesController {
             List<Atendentes> list = atendentesService.findAll();
 
             if(!list.isEmpty()) {
-                return new ResponseEntity<>(list,null,HttpStatus.FOUND);
+                return new ResponseEntity<>(list,null,HttpStatus.OK);
             }
             return new ResponseEntity<>(list, null, HttpStatus.NO_CONTENT);
 
@@ -46,11 +46,17 @@ public class AtendentesController {
         }
     }
 
-    /*@GetMapping("id/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id){
+    @GetMapping("/id/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id) throws Exception {
 
-        Atendentes atendente = atendentesService.findById(id);
+        try{
+            Atendentes atendente = atendentesService.findById(id);
+            if(atendente != null) return new ResponseEntity<>(atendente,null,HttpStatus.OK);
+            else return new ResponseEntity<>(null,null,HttpStatus.NO_CONTENT);
+        }
+        catch(Exception exception){
 
+            throw new Exception(exception);
+        }
     }
-*/
 }

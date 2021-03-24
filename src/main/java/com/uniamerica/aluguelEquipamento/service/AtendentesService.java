@@ -30,7 +30,14 @@ public class AtendentesService {
         return atendentesRepository.findAllByNome(nome);
     }
 
-    /*public Optional<Atendentes> findById(Long id) {
-        return atendentesRepository.findById(id);
-    }*/
+    public Atendentes findById(Long id) {
+        Optional<Atendentes> atendente = atendentesRepository.findById(id);
+
+        if(atendente.isPresent()){
+            return atendente.get();
+        }
+        else {
+            return null;
+        }
+    }
 }
