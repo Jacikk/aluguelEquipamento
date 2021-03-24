@@ -30,7 +30,26 @@ public class AtendentesService {
         return atendentesRepository.findAllByNome(nome);
     }
 
-    /*public Optional<Atendentes> findById(Long id) {
-        return atendentesRepository.findById(id);
-    }*/
+    public Atendentes findById(Long id) {
+        Optional<Atendentes> atendente = atendentesRepository.findById(id);
+
+        if(atendente.isPresent()){
+            return atendente.get();
+        }
+        else {
+            return null;
+        }
+    }
+
+    public Atendentes findByEmail(String email) {
+        return atendentesRepository.findByEmail(email);
+    }
+
+    public Atendentes findByCpf(String cpf) {
+        return atendentesRepository.findByCpf(cpf);
+    }
+
+    public Atendentes findByRg(String rg) {
+        return atendentesRepository.findByRg(rg);
+    }
 }
