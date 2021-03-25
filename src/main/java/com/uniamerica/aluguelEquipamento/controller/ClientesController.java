@@ -22,7 +22,7 @@ public class ClientesController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Clientes> findById(@PathVariable long id) {
+    public ResponseEntity<Clientes> findById(@PathVariable Long id) {
         return ResponseEntity.ok(clientesService.findById(id));
     }
 
@@ -32,14 +32,14 @@ public class ClientesController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         clientesService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Clientes> replace(@RequestBody Clientes clientes,
-                                            @PathVariable long id) {
+                                            @PathVariable Long id) {
         clientesService.update(clientes, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

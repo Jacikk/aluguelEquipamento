@@ -114,4 +114,25 @@ public class AtendentesController {
             throw new Exception(exception);
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update (@PathVariable Long id, @RequestBody Atendentes atendente) throws Exception {
+        try {
+            atendente.setId(id);
+            return new ResponseEntity<>(atendentesService.update(atendente), null, HttpStatus.OK);
+        }
+        catch(Exception ex) {
+            throw new Exception(ex);
+        }
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) throws Exception{
+        try {
+            atendentesService.delete(id);
+            return new ResponseEntity<>(null, null, HttpStatus.OK);
+        }
+        catch(Exception ex) {
+            throw new Exception(ex);
+        }
+    }
 }
