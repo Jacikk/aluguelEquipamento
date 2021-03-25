@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@RestController;
+@RestController
 @RequestMapping("/categorias")
 public class CategoriasController {
 
@@ -60,8 +60,8 @@ public class CategoriasController {
     @GetMapping("/name/{name}")
     public ResponseEntity<?> findByName(@PathVariable String name) throws Exception{
         try{
-            Categorias categorias = categoriasService.findByName(name);
-            if(categorias != null) return new ResponseEntity<>(categorias, null, HttpStatus.OK);
+            List<Categorias> categorias = categoriasService.findByName(name);
+            if(!categorias .isEmpty()) return new ResponseEntity<>(categorias, null, HttpStatus.OK);
             else return new ResponseEntity<>(null, null, HttpStatus.NO_CONTENT);
         }catch (Exception exception){
             throw new Exception(exception);

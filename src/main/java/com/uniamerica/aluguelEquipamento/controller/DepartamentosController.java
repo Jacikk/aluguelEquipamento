@@ -42,16 +42,19 @@ public class DepartamentosController {
     }
 
     @GetMapping("id/{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id){
+    public ResponseEntity<?> getById(@PathVariable Long id) throws Exception {
 
-        List<Departamentos> listNome = departamentosService.getById(id);
-
-        if(!listNome.isEmpty()){
-            return new ResponseEntity<>(listNome, null, HttpStatus.OK);
+        try{
+            Departamentos departamento = departamentosService.getById(id);
+            if(departamento != null) return new ResponseEntity<>(departamento, null, HttpStatus.OK);
+            else return new ResponseEntity<>(null, null, HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(listNome, null, HttpStatus.NO_CONTENT);
+        catch (Exception ex){
+            throw new Exception(ex);
+        }
 
     }
+
 
     @GetMapping("nome/{nome}")
     public ResponseEntity<?> listaPorNome(@PathVariable String nome){

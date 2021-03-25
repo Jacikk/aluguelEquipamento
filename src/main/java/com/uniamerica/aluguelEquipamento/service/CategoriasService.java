@@ -24,9 +24,10 @@ public class CategoriasService{
 
     public Categorias createCategorias(Categorias categorias) { return categoriasRepository.save(categorias);}
 
-    public List<Categorias> findByName(String name) {return categoriasRepository.findByName(name); }
+    public List<Categorias> findByName(String name) {return categoriasRepository.findAllByName(name); }
 
-    public List<Categorias> findAll() {return CategoriasRepository.findAll();}
+    public List<Categorias> findAll() {return categoriasRepository.findAll();}
+
     public Categorias findById(Long id) {
         Optional<Categorias> categorias = categoriasRepository.findById(id);
 
@@ -37,6 +38,5 @@ public class CategoriasService{
             return null;
         }
     }
-
 
 }

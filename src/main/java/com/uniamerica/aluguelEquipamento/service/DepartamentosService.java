@@ -1,11 +1,14 @@
 package com.uniamerica.aluguelEquipamento.service;
 
+import com.uniamerica.aluguelEquipamento.model.Categorias;
 import com.uniamerica.aluguelEquipamento.model.Departamentos;
 import com.uniamerica.aluguelEquipamento.repository.DepartamentosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class DepartamentosService {
 
@@ -28,8 +31,15 @@ public class DepartamentosService {
         return departamentosRepository.findByNome(nome);
     }
 
-    public List<Departamentos> getById(Long id) {
-        return departamentosRepository.findById(id);
+    public Departamentos getById(Long id) {
+        Optional<Departamentos> departamento = departamentosRepository.findById(id);
+
+        if(departamento.isPresent()){
+            return departamento.get();
+        }
+        else {
+            return null;
+        }
     }
 
     public Departamentos createDepartamentos(Departamentos departamentos) {
