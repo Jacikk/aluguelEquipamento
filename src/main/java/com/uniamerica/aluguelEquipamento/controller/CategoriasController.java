@@ -67,5 +67,18 @@ public class CategoriasController {
             throw new Exception(exception);
         }
     }
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        categoriasService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Categorias> replace(@RequestBody Categorias categoria,
+                                              @PathVariable Long id) {
+        categoria.setId(id);
+        categoriasService.update(categoria);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
 
