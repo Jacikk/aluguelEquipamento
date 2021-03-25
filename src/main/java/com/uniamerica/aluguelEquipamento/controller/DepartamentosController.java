@@ -55,7 +55,6 @@ public class DepartamentosController {
 
     }
 
-
     @GetMapping("nome/{nome}")
     public ResponseEntity<?> listaPorNome(@PathVariable String nome){
 
@@ -66,7 +65,4 @@ public class DepartamentosController {
         }
         return new ResponseEntity<>(list, null, HttpStatus.NO_CONTENT);
     }
-
-
-
 }
