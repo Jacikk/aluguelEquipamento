@@ -3,13 +3,17 @@ package com.uniamerica.aluguelEquipamento.service;
 import com.uniamerica.aluguelEquipamento.exception.BadRequestException;
 import com.uniamerica.aluguelEquipamento.model.Clientes;
 import com.uniamerica.aluguelEquipamento.repository.ClientesRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ClientesService {
 
     private final ClientesRepository clientesRepository;
 
+    @Autowired
     public ClientesService(ClientesRepository clientesRepository){
         this.clientesRepository = clientesRepository;
     }
@@ -19,10 +23,14 @@ public class ClientesService {
 
         return clientes;
     }
-    public Clientes findByName(String nome){
-        Clientes clientes = clientesRepository.findByName(nome);
+    public Clientes findByNome(String nome){
+        Clientes clientes = clientesRepository.findByNome(nome);
 
         return clientes;
+    }
+
+    public List<Clientes> findAll() {
+        return clientesRepository.findAll();
     }
     public Clientes create(Clientes clientes){
         Clientes clientesToSave = clientesRepository.save(clientes);
@@ -37,5 +45,13 @@ public class ClientesService {
     }
     public void delete(long id){
         clientesRepository.deleteById(id);
+    }
+
+    public Clientes findByCpf(String cpf) {
+        return clientesRepository.findByCpf(cpf);
+    }
+
+    public Clientes findByRg(String rg) {
+        return clientesRepository.findByRg(rg);
     }
 }
