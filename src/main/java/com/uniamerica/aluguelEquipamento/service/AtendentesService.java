@@ -52,4 +52,12 @@ public class AtendentesService {
     public Atendentes findByRg(String rg) {
         return atendentesRepository.findByRg(rg);
     }
+
+    public Atendentes update(Atendentes atendente) {
+        return atendentesRepository.save(atendente);
+    }
+
+    public void delete(Long id) {
+        atendentesRepository.deleteById(id);
+    }
 }

@@ -41,7 +41,6 @@ public class Emprestimos {
         this.atendente = atendente;
     }
 
-
     public Clientes getCliente() {
         return cliente;
     }
