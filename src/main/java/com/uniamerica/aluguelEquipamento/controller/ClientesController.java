@@ -3,6 +3,7 @@ package com.uniamerica.aluguelEquipamento.controller;
 
 import com.uniamerica.aluguelEquipamento.model.Clientes;
 import com.uniamerica.aluguelEquipamento.service.ClientesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +13,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/clientes")
 public class ClientesController {
-    private ClientesService clientesService;
 
-    public ClientesController(ClientesService clientesService){
-        this.clientesService = clientesService;
-    }
+    @Autowired
+    private ClientesService clientesService;
 
     @GetMapping(path = "/{nome}")
     public ResponseEntity<Clientes> findByEmail(@PathVariable String nome) {

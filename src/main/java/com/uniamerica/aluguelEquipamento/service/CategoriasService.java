@@ -39,4 +39,12 @@ public class CategoriasService{
         }
     }
 
+
+    public void delete(long id) {
+        categoriasRepository.deleteById(id);
+    }
+
+    public Categorias update(Categorias categoria) {
+        return categoriasRepository.save(categoria);
+    }
 }
