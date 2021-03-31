@@ -42,7 +42,7 @@ public class DepartamentosController {
     }
 
     @GetMapping("id/{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id){
+    public ResponseEntity<?> getById(@PathVariable Long id) throws Exception {
 
         Departamentos departamento = departamentosService.getById(id);
 
@@ -64,6 +64,14 @@ public class DepartamentosController {
         return new ResponseEntity<>(list, null, HttpStatus.NO_CONTENT);
     }
 
-
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) throws Exception{
+        try {
+            departamentosService.delete(id);
+            return new ResponseEntity<>(null, null, HttpStatus.OK);
+        }
+        catch(Exception ex) {
+            throw new Exception(ex);
+        }
+    }
 }

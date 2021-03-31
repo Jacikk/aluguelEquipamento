@@ -32,13 +32,21 @@ public class DepartamentosService {
 
     public Departamentos getById(Long id) {
         Optional<Departamentos> departamento = departamentosRepository.findById(id);
+
         if(departamento.isPresent()){
             return departamento.get();
         }
-        return null;
+        else {
+            return null;
+        }
+
     }
 
     public Departamentos createDepartamentos(Departamentos departamentos) {
         return  departamentosRepository.save(departamentos);
+    }
+
+    public void delete(Long id) {
+        departamentosRepository.deleteById(id);
     }
 }

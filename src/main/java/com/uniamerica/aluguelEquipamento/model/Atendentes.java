@@ -1,14 +1,13 @@
 package com.uniamerica.aluguelEquipamento.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.*;
 
 @Entity
 public class Atendentes extends Usuarios {
 
     private String senha;
 
+    @Column(unique=true)
     private String email;
 
     public String getSenha() {

@@ -12,8 +12,9 @@ public abstract class Usuarios {
 
     private String nome;
 
+    @Column(unique=true)
     private String rg;
-
+    @Column(unique=true)
     private String cpf;
 
     private String endereco;
