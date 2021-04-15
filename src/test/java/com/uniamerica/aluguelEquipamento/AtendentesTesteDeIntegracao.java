@@ -1,10 +1,13 @@
 package com.uniamerica.aluguelEquipamento;
 
+import antlr.build.Tool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniamerica.aluguelEquipamento.model.Atendentes;
 import com.uniamerica.aluguelEquipamento.service.AtendentesService;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -61,7 +64,7 @@ public class AtendentesTesteDeIntegracao {
     }
 
     @Test
-    void getAllAtendenteByNome() throws Exception {
+    void getAllAtendenteByNome_Test() throws Exception {
 
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get("/atendentes/nome/{nome}", "Teste00")
@@ -71,14 +74,14 @@ public class AtendentesTesteDeIntegracao {
     }
 
     @Test
-    void alteraUsuairo() throws Exception {
+    void alteraUsuairo_Test() throws Exception {
 
         //Optional<Usuario> userBd = usuarioService.findById(1);
         Atendentes atendenteBd = atendentesService.findById(1L);
 
         //userBd.ifPresent(usuario -> usuario.setNome("alterado"));
         if (atendenteBd != null) {
-
+            atendenteBd.setNome("alterado");
         }
         this.mockMvc.perform( MockMvcRequestBuilders
                 .put("/atendentes/{id}",1)
@@ -88,9 +91,23 @@ public class AtendentesTesteDeIntegracao {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.nome").value("alterado"));
     }
-
     @Test
-    void deleteUsuario() throws Exception {
+    void deleteUsuario_Test() throws Exception {
+
+        Atendentes atendente1 = new Atendentes();
+        atendente1.setNome("Teste01");
+        atendente1.setEmail("TesteEmail01");
+        atendente1.setSenha("TesteSenha01");
+        atendente1.setCpf("testeCpf01");
+        atendente1.setRg("testeRg01");
+        atendente1.setTelefone("telTeste01");
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/atendentes")
+                .content(objectMapper.writeValueAsString(atendente1))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON));
+
         this.mockMvc.perform(MockMvcRequestBuilders.delete("/atendentes/{id}", 1))
                 .andExpect(status().isOk());
     }
