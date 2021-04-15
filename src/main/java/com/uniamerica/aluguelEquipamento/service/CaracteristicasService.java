@@ -1,7 +1,7 @@
 package com.uniamerica.aluguelEquipamento.service;
 
 
-import com.uniamerica.aluguelEquipamento.model.Categorias;
+import com.uniamerica.aluguelEquipamento.model.Caracteristicas;
 
 import com.uniamerica.aluguelEquipamento.repository.CaracteristicasRepository;
 import org.springframework.stereotype.Service;
@@ -20,14 +20,14 @@ public class CaracteristicasService {
         this.caracteristicasRepository = caracteristicasRepository;
     }
 
-    public Categorias createCategorias(Categorias categorias) { return caracteristicasRepository.save(categorias);}
+    public Caracteristicas createCategorias(Caracteristicas caracteristicas) { return caracteristicasRepository.save(caracteristicas);}
 
-    public List<Categorias> findByName(String name) {return caracteristicasRepository.findAllByName(name); }
+    public List<Caracteristicas> findByName(String name) {return caracteristicasRepository.findAllByName(name); }
 
-    public List<Categorias> findAll() {return caracteristicasRepository.findAll();}
+    public List<Caracteristicas> findAll() {return caracteristicasRepository.findAll();}
 
-    public Categorias findById(Long id) {
-        Optional<Categorias> categorias = caracteristicasRepository.findById(id);
+    public Caracteristicas findById(Long id) {
+        Optional<Caracteristicas> categorias = caracteristicasRepository.findById(id);
 
         if(categorias.isPresent()){
             return categorias.get();
@@ -42,7 +42,7 @@ public class CaracteristicasService {
         caracteristicasRepository.deleteById(id);
     }
 
-    public Categorias update(Categorias categoria) {
+    public Caracteristicas update(Caracteristicas categoria) {
         return caracteristicasRepository.save(categoria);
     }
 }

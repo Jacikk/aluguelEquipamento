@@ -1,6 +1,5 @@
 package com.uniamerica.aluguelEquipamento.service;
 
-import com.uniamerica.aluguelEquipamento.model.Categorias;
 import com.uniamerica.aluguelEquipamento.model.Departamentos;
 import com.uniamerica.aluguelEquipamento.repository.DepartamentosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
