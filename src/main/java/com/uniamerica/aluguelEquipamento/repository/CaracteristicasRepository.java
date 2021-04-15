@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CategoriasRepository extends JpaRepository<Categorias, Long>{
+public interface CaracteristicasRepository extends JpaRepository<Categorias, Long>{
     List<Categorias> findAllByName (String name);
 
     Categorias findByName(String name);
