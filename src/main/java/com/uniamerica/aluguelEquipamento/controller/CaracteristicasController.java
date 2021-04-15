@@ -60,8 +60,8 @@ public class CaracteristicasController {
     @GetMapping("/name/{name}")
     public ResponseEntity<?> findByName(@PathVariable String name) throws Exception{
         try{
-            List<Caracteristicas> categorias = caracteristicasService.findByName(name);
-            if(!categorias .isEmpty()) return new ResponseEntity<>(categorias, null, HttpStatus.OK);
+            List<Caracteristicas> caracteristicas = caracteristicasService.findByName(name);
+            if(!caracteristicas.isEmpty()) return new ResponseEntity<>(caracteristicas, null, HttpStatus.OK);
             else return new ResponseEntity<>(null, null, HttpStatus.NO_CONTENT);
         }catch (Exception exception){
             throw new Exception(exception);
@@ -74,10 +74,10 @@ public class CaracteristicasController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Caracteristicas> replace(@RequestBody Caracteristicas categoria,
+    public ResponseEntity<Caracteristicas> replace(@RequestBody Caracteristicas caracteristicas,
                                                    @PathVariable Long id) {
-        categoria.setId(id);
-        caracteristicasService.update(categoria);
+        caracteristicas.setId(id);
+        caracteristicasService.update(caracteristicas);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
