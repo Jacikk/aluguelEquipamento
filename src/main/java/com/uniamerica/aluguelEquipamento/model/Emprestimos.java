@@ -23,6 +23,8 @@ public class Emprestimos {
 
     private Date dataFinal;
 
+    private Date dataDevolucao;
+
     private Boolean retirado;
 
     public long getId() {
