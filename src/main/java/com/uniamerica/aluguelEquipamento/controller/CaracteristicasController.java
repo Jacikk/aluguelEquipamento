@@ -1,6 +1,6 @@
 package com.uniamerica.aluguelEquipamento.controller;
 
-import com.uniamerica.aluguelEquipamento.model.Categorias;
+import com.uniamerica.aluguelEquipamento.model.Caracteristicas;
 import com.uniamerica.aluguelEquipamento.service.CaracteristicasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,14 +17,14 @@ public class CaracteristicasController {
     private CaracteristicasService caracteristicasService;
 
     @PostMapping
-    public ResponseEntity<?> createCategorias(@RequestBody Categorias categorias) throws Exception{
+    public ResponseEntity<?> createCategorias(@RequestBody Caracteristicas caracteristicas) throws Exception{
         try {
-            if(caracteristicasService.findByName(categorias.getName()) != null){
+            if(caracteristicasService.findByName(caracteristicas.getName()) != null){
                 return new ResponseEntity<>("Categoria já existe", null, HttpStatus.BAD_REQUEST);
 
             }else{
-                Categorias categoriasSaved = caracteristicasService.createCategorias(categorias);
-                return new ResponseEntity<>(categoriasSaved, null, HttpStatus.CREATED);
+                Caracteristicas caracteristicasSaved = caracteristicasService.createCategorias(caracteristicas);
+                return new ResponseEntity<>(caracteristicasSaved, null, HttpStatus.CREATED);
             }
         }catch(Exception exception){
             throw new Exception(exception);
@@ -34,7 +34,7 @@ public class CaracteristicasController {
     @GetMapping()
     public ResponseEntity<?> findAll() throws  Exception{
         try {
-            List<Categorias> list = caracteristicasService.findAll();
+            List<Caracteristicas> list = caracteristicasService.findAll();
 
             if(!list.isEmpty()){
                 return  new ResponseEntity<>(list,null, HttpStatus.OK);
@@ -49,8 +49,8 @@ public class CaracteristicasController {
     @GetMapping("/id/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) throws Exception{
         try {
-            Categorias categorias= caracteristicasService.findById(id);
-            if (categorias != null) return new ResponseEntity<>(categorias, null, HttpStatus.OK);
+            Caracteristicas caracteristicas = caracteristicasService.findById(id);
+            if (caracteristicas != null) return new ResponseEntity<>(caracteristicas, null, HttpStatus.OK);
             else return new ResponseEntity<>(null, null, HttpStatus.NO_CONTENT);
         }catch(Exception exception){
             throw new Exception(exception);
@@ -60,7 +60,7 @@ public class CaracteristicasController {
     @GetMapping("/name/{name}")
     public ResponseEntity<?> findByName(@PathVariable String name) throws Exception{
         try{
-            List<Categorias> categorias = caracteristicasService.findByName(name);
+            List<Caracteristicas> categorias = caracteristicasService.findByName(name);
             if(!categorias .isEmpty()) return new ResponseEntity<>(categorias, null, HttpStatus.OK);
             else return new ResponseEntity<>(null, null, HttpStatus.NO_CONTENT);
         }catch (Exception exception){
@@ -74,8 +74,8 @@ public class CaracteristicasController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Categorias> replace(@RequestBody Categorias categoria,
-                                              @PathVariable Long id) {
+    public ResponseEntity<Caracteristicas> replace(@RequestBody Caracteristicas categoria,
+                                                   @PathVariable Long id) {
         categoria.setId(id);
         caracteristicasService.update(categoria);
         return new ResponseEntity<>(HttpStatus.OK);
