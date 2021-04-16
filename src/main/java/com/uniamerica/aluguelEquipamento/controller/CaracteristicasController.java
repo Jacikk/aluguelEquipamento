@@ -6,24 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
-
 @RestController
-@RequestMapping("/categorias")
+@RequestMapping("/caracteristicas")
 public class CaracteristicasController {
 
     @Autowired
     private CaracteristicasService caracteristicasService;
 
     @PostMapping
-    public ResponseEntity<?> createCategorias(@RequestBody Caracteristicas caracteristicas) throws Exception{
+    public ResponseEntity<?> createCaracteristicas(@RequestBody Caracteristicas caracteristicas) throws Exception{
         try {
             if(caracteristicasService.findByName(caracteristicas.getName()) != null){
-                return new ResponseEntity<>("Categoria já existe", null, HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("Caracteristica já existe", null, HttpStatus.BAD_REQUEST);
 
             }else{
-                Caracteristicas caracteristicasSaved = caracteristicasService.createCategorias(caracteristicas);
+                Caracteristicas caracteristicasSaved = caracteristicasService.createCaracteristicas(caracteristicas);
                 return new ResponseEntity<>(caracteristicasSaved, null, HttpStatus.CREATED);
             }
         }catch(Exception exception){

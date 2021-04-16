@@ -4,6 +4,7 @@ import antlr.build.Tool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniamerica.aluguelEquipamento.model.Atendentes;
 import com.uniamerica.aluguelEquipamento.service.AtendentesService;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
