@@ -18,9 +18,9 @@ public class DepartamentosService {
         this.departamentosRepository = departamentosRepository;
     }
 
-   /* public Departamentos insereDepartamentos(Departamentos departamentos) {
+    public Departamentos insereDepartamentos(Departamentos departamentos) {
         return departamentosRepository.save(departamentos);
-    } */
+    }
 
     public List<Departamentos> listaTodos() {
         return departamentosRepository.findAll();
@@ -43,5 +43,17 @@ public class DepartamentosService {
 
     public Departamentos createDepartamentos(Departamentos departamentos) {
         return  departamentosRepository.save(departamentos);
+    }
+
+    public Departamentos update(Departamentos departamentos) {
+        return departamentosRepository.save(departamentos);
+    }
+
+    public Optional<Departamentos> findById(long id){
+        return departamentosRepository.findById(id);
+    }
+
+    public void delete(Long id) {
+        departamentosRepository.deleteById(id);
     }
 }
