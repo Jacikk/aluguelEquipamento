@@ -1,6 +1,5 @@
 package com.uniamerica.aluguelEquipamento.service;
 
-import com.uniamerica.aluguelEquipamento.model.Categorias;
 import com.uniamerica.aluguelEquipamento.model.Departamentos;
 import com.uniamerica.aluguelEquipamento.repository.DepartamentosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +18,9 @@ public class DepartamentosService {
         this.departamentosRepository = departamentosRepository;
     }
 
-   /* public Departamentos insereDepartamentos(Departamentos departamentos) {
+    public Departamentos insereDepartamentos(Departamentos departamentos) {
         return departamentosRepository.save(departamentos);
-    } */
+    }
 
     public List<Departamentos> listaTodos() {
         return departamentosRepository.findAll();
@@ -44,5 +43,17 @@ public class DepartamentosService {
 
     public Departamentos createDepartamentos(Departamentos departamentos) {
         return  departamentosRepository.save(departamentos);
+    }
+
+    public Departamentos update(Departamentos departamentos) {
+        return departamentosRepository.save(departamentos);
+    }
+
+    public Optional<Departamentos> findById(long id){
+        return departamentosRepository.findById(id);
+    }
+
+    public void delete(Long id) {
+        departamentosRepository.deleteById(id);
     }
 }
