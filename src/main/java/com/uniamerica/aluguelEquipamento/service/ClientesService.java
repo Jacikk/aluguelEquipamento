@@ -18,7 +18,7 @@ public class ClientesService {
         this.clientesRepository = clientesRepository;
     }
 
-    public Clientes findById(long id){
+    public Clientes findById(Long id){
         Clientes clientes = clientesRepository.findById(id).orElseThrow(() -> new BadRequestException("Cliente não encontrado"));
 
         return clientes;
@@ -36,13 +36,13 @@ public class ClientesService {
 
         return clientesToSave;
     }
-    public Clientes update(Clientes clientes, long id){
+    public Clientes update(Clientes clientes, Long id){
         Clientes clientesToChange = findById(id);
 
         clientes.setId(clientesToChange.getId());
         return clientesRepository.save(clientes);
     }
-    public void delete(long id){
+    public void delete(Long id){
         clientesRepository.deleteById(id);
     }
 
