@@ -23,15 +23,14 @@ public class ClientesService {
 
         return clientes;
     }
-    public Clientes findByNome(String nome){
-        Clientes clientes = clientesRepository.findByNome(nome);
-
-        return clientes;
+    public List<Clientes> findByNome(String nome){
+        return clientesRepository.findByNome(nome);
     }
 
     public List<Clientes> findAll() {
         return clientesRepository.findAll();
     }
+
     public Clientes create(Clientes clientes){
         Clientes clientesToSave = clientesRepository.save(clientes);
 

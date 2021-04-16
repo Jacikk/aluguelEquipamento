@@ -20,7 +20,7 @@ public class Produtos {
     private Boolean disponivel;
 
     @ManyToOne
-    private Categorias categoria;
+    private Caracteristicas categoria;
 
     public long getId() {
         return id;
@@ -62,11 +62,11 @@ public class Produtos {
         this.disponivel = disponivel;
     }
 
-    public Categorias getCategoria() {
+    public Caracteristicas getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categorias categoria) {
+    public void setCategoria(Caracteristicas categoria) {
         this.categoria = categoria;
     }
 }
