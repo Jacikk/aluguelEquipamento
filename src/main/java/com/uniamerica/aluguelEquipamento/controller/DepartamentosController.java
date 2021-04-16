@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/departamentos")
@@ -65,4 +66,35 @@ public class DepartamentosController {
         }
         return new ResponseEntity<>(list, null, HttpStatus.NO_CONTENT);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update (@PathVariable Long id, @RequestBody Departamentos departamentos) throws Exception {
+        Optional<Departamentos> user = departamentosService.findById(id);
+
+        Departamentos result = null;
+
+        if(user.isPresent()){
+            result = departamentosService.insereDepartamentos(departamentos);
+            return new ResponseEntity<>(result,null,HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(result,null,HttpStatus.CONFLICT);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) throws Exception{
+        try {
+            departamentosService.delete(id);
+            return new ResponseEntity<>(null, null, HttpStatus.OK);
+        }
+        catch(Exception ex) {
+            throw new Exception(ex);
+        }
+    }
+
+
+
+
+
+
 }
