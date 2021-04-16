@@ -22,6 +22,7 @@ public class Produtos {
     @ManyToOne
     private Caracteristicas caracteristica;
 
+
     public long getId() {
         return id;
     }
@@ -68,5 +69,5 @@ public class Produtos {
 
     public void setCaracteristica(Caracteristicas caracteristica) {
         this.caracteristica = caracteristica;
-    }
+
 }
