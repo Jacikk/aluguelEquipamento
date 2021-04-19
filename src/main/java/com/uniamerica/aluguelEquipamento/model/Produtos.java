@@ -69,5 +69,5 @@ public class Produtos {
 
     public void setCaracteristica(Caracteristicas caracteristica) {
         this.caracteristica = caracteristica;
-
+    }
 }
