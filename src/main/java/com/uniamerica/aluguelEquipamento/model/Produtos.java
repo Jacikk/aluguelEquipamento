@@ -10,7 +10,7 @@ public class Produtos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String name;
+    private String nome;
 
     private String descricao;
 
@@ -32,11 +32,11 @@ public class Produtos {
     }
 
     public String getName() {
-        return name;
+        return nome;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.nome = name;
     }
 
     public String getDescricao() {
