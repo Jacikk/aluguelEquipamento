@@ -17,7 +17,7 @@ public class Produtos {
     @ManyToOne
     private Itens item;
 
-    private Boolean disponivel;
+    private Boolean disponivel; //disponivel = está no estoque
 
     @ManyToOne
     private Caracteristicas caracteristica;
