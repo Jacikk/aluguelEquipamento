@@ -4,7 +4,9 @@ import com.uniamerica.aluguelEquipamento.model.Caracteristicas;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CaracteristicasRepository extends JpaRepository<Caracteristicas, Long> {
-    Caracteristicas findByNome(String nome);
+    List<Caracteristicas> findByNome(String nome);
 }
