@@ -33,7 +33,7 @@ public class ItensService {
         else return null;
     }
 
-    public Itens findByNome(String nome) {
+    public List<Itens> findByNome(String nome) {
         return itensRepository.findByNome(nome);
     }
 

@@ -37,7 +37,7 @@ public class CaracteristicasService {
         }
     }
 
-    public Caracteristicas findByNome(String nome) {
+    public List<Caracteristicas> findByNome(String nome) {
         return caracteristicasRepository.findByNome(nome);
     }
 

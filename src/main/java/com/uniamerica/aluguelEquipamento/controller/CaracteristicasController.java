@@ -60,9 +60,9 @@ public class CaracteristicasController {
     @GetMapping("/nome/{nome}")
     public ResponseEntity<?> findByNome(@PathVariable String nome) throws Exception{
         try{
-            Caracteristicas carFound = caracteristicasService.findByNome(nome);
+            List<Caracteristicas> carFound = caracteristicasService.findByNome(nome);
             if(carFound != null) return new ResponseEntity<>(carFound, null, HttpStatus.OK);
-            else return new ResponseEntity<>(carFound, null, HttpStatus.NOT_FOUND);
+            else return new ResponseEntity<>(null, null, HttpStatus.NOT_FOUND);
         }
         catch (Exception ex){
             throw new Exception(ex);
