@@ -1,7 +1,5 @@
 package com.uniamerica.aluguelEquipamento.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -26,6 +24,9 @@ public class Emprestimos {
     private Date dataDevolucao;
 
     private Boolean retirado;
+
+    @ManyToOne
+    private Produtos produto;
 
     public long getId() {
         return id;

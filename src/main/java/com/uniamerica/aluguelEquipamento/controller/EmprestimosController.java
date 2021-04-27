@@ -1,12 +1,14 @@
 package com.uniamerica.aluguelEquipamento.controller;
 
 import com.uniamerica.aluguelEquipamento.model.Emprestimos;
+import com.uniamerica.aluguelEquipamento.model.VerificarPeriodo;
 import com.uniamerica.aluguelEquipamento.service.EmprestimosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.List;
 
 @RestController
@@ -79,6 +81,31 @@ public class EmprestimosController {
             Emprestimos found = emprestimosService.findById(id);
             if(found != null) return new ResponseEntity<>(found, null, HttpStatus.OK);
             else return new ResponseEntity<>(null, null, HttpStatus.NOT_FOUND);
+        }
+        catch (Exception ex){
+            throw new Exception(ex);
+        }
+    }
+
+    @GetMapping("/produto/{id}")
+    public ResponseEntity<?> findByProduto (@PathVariable Long id) throws Exception{
+        try{
+            List<Emprestimos> found = emprestimosService.findByProduto(id);
+            if(!found.isEmpty()) return new ResponseEntity<>(found, null, HttpStatus.OK);
+            else return new ResponseEntity<>(found, null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception ex){
+            throw new Exception(ex);
+        }
+    }
+
+    @PostMapping("/Prazo/")
+    @Deprecated
+    public ResponseEntity<?> verificarPrazo (@RequestBody VerificarPeriodo verificarPeriodo) throws Exception{
+        try{
+            if(emprestimosService.verificarPeriodo(verificarPeriodo));
+            return new ResponseEntity<>(null, null, HttpStatus.OK);
+
         }
         catch (Exception ex){
             throw new Exception(ex);
