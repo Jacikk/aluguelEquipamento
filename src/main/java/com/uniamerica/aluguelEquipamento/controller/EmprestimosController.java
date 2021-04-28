@@ -1,14 +1,16 @@
 package com.uniamerica.aluguelEquipamento.controller;
 
 import com.uniamerica.aluguelEquipamento.model.Emprestimos;
-import com.uniamerica.aluguelEquipamento.model.VerificarPeriodo;
+import com.uniamerica.aluguelEquipamento.model.Produtos;
 import com.uniamerica.aluguelEquipamento.service.EmprestimosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -26,7 +28,9 @@ public class EmprestimosController {
     public ResponseEntity<?> createEmprestimo(@RequestBody Emprestimos emprestimo) throws Exception{
         try{
             Emprestimos saved = emprestimosService.create(emprestimo);
-            return new ResponseEntity<>(saved, null, HttpStatus.CREATED);
+
+            if(saved != null) return new ResponseEntity<>(saved, null, HttpStatus.CREATED);
+            else return new ResponseEntity<>("Emprestimo não disponivel na data ou conflito com bando de dados", null, HttpStatus.BAD_REQUEST);
         }
         catch (Exception ex){
             throw new Exception(ex);
@@ -99,13 +103,20 @@ public class EmprestimosController {
         }
     }
 
-    @PostMapping("/Prazo/")
+    @PostMapping("/{dataInicial}/{dataFinal}")
     @Deprecated
-    public ResponseEntity<?> verificarPrazo (@RequestBody VerificarPeriodo verificarPeriodo) throws Exception{
+    public ResponseEntity<?> verificarPrazo (@PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") Date dataInicio,
+                                             @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd")Date dataFinal) throws Exception{
         try{
-            if(emprestimosService.verificarPeriodo(verificarPeriodo));
-            return new ResponseEntity<>(null, null, HttpStatus.OK);
+            Calendar inicio = Calendar.getInstance();
+            inicio.setTime(dataInicio);
 
+            Calendar fim= Calendar.getInstance();
+            fim.setTime(dataFinal);
+
+            List<Produtos> listaDeProdutosDisponiveis = emprestimosService.verificarPeriodo(inicio, fim);
+            if(!listaDeProdutosDisponiveis.isEmpty() ) return new ResponseEntity<>(listaDeProdutosDisponiveis, null , HttpStatus.OK);
+            else return new ResponseEntity<>(listaDeProdutosDisponiveis, null , HttpStatus.NO_CONTENT);
         }
         catch (Exception ex){
             throw new Exception(ex);
