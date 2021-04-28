@@ -2,11 +2,11 @@ package com.uniamerica.aluguelEquipamento.service;
 
 import com.uniamerica.aluguelEquipamento.model.Emprestimos;
 import com.uniamerica.aluguelEquipamento.model.Produtos;
-import com.uniamerica.aluguelEquipamento.model.VerificarPeriodo;
 import com.uniamerica.aluguelEquipamento.repository.EmprestimosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +24,45 @@ public class EmprestimosService {
     }
 
     public Emprestimos create(Emprestimos emprestimos) {
-        return emprestimosRepository.save(emprestimos);
+
+        Calendar dataInicial = Calendar.getInstance();
+        dataInicial.setTime(emprestimos.getDataInicial());
+
+        Calendar dataFinal = Calendar.getInstance();
+        dataFinal.setTime(emprestimos.getDataFinal());
+
+        List<Emprestimos> emprestimosDoBd = emprestimosRepository.findAll();
+
+        boolean conflictComEmprestimoNoBd = false;
+
+        for (Emprestimos emprestimosAVerificar :emprestimosDoBd) {
+
+            Calendar dataInicialNoDb = Calendar.getInstance();
+            dataInicialNoDb.setTime(emprestimosAVerificar.getDataInicial());
+
+            Calendar dataFinalNoDb = Calendar.getInstance();
+            dataFinalNoDb.setTime(emprestimosAVerificar.getDataFinal());
+
+            if(dataFinal.after(dataInicialNoDb) && dataFinal.before(dataFinalNoDb)){
+
+                conflictComEmprestimoNoBd = true;
+
+            } else if(dataInicial.after(dataInicialNoDb) && dataInicial.before(dataFinalNoDb)){
+
+                conflictComEmprestimoNoBd = true;
+
+            } else if(dataInicialNoDb.after(dataInicial) && dataInicialNoDb.before(dataFinal)){
+
+                conflictComEmprestimoNoBd = true;
+
+            } else if(dataFinalNoDb.after(dataInicial) && dataFinalNoDb.before(dataFinal)){
+
+                conflictComEmprestimoNoBd = true;
+
+            }
+        }
+        if(conflictComEmprestimoNoBd) return null;
+        else return emprestimosRepository.save(emprestimos);
     }
 
     public Emprestimos findById(Long id) {
@@ -53,40 +91,33 @@ public class EmprestimosService {
         return emprestimosRepository.findByProduto(produto);
     }
 
-    public boolean verificarPeriodo(VerificarPeriodo verificarPeriodo) {
+    public List<Produtos> verificarPeriodo(Calendar inicio, Calendar fim) {
+        List<Emprestimos> emprestimos = emprestimosRepository.findAll();
+        List<Produtos> produtosEmprestadosNoPeriodo = new ArrayList<>();
+        List<Produtos> produtosDisponiveis = produtosService.findAll();
 
-        Calendar verificarInicio = Calendar.getInstance();
-        verificarInicio.setTime(verificarPeriodo.getDataInicial());
+        for (Emprestimos emprestimosAVerificar :emprestimos) {
 
-        Calendar verificarFinal = Calendar.getInstance();
-        verificarFinal.setTime(verificarPeriodo.getDataFinal());
+            Calendar dataInicial = Calendar.getInstance();
+            dataInicial.setTime(emprestimosAVerificar.getDataInicial());
 
-        List<Emprestimos> ListaDeEmprestimos = findByProduto(verificarPeriodo.getProdutoId());
+            Calendar dataFinal = Calendar.getInstance();
+            dataFinal.setTime(emprestimosAVerificar.getDataFinal());
 
-        boolean conflitoDePeriodos = false;
-
-        for (Emprestimos emprestimo : ListaDeEmprestimos) {
-
-            Calendar emprestimoInicio = Calendar.getInstance();
-            emprestimoInicio.setTime(emprestimo.getDataInicial());
-
-            Calendar emprestimoFinal = Calendar.getInstance();
-            emprestimoFinal.setTime(emprestimo.getDataFinal());
-
-            if (verificarInicio.after(emprestimoInicio) && verificarInicio.before(emprestimoFinal)) {
-                conflitoDePeriodos = true;
+            if(fim.after(dataInicial) && fim.before(dataFinal)){
+                produtosEmprestadosNoPeriodo.add(emprestimosAVerificar.getProduto());
+            } else if(inicio.after(dataInicial) && inicio.before(dataFinal)){
+                produtosEmprestadosNoPeriodo.add(emprestimosAVerificar.getProduto());
+            } else if(dataInicial.after(inicio) && dataInicial.before(dataFinal)){
+                produtosEmprestadosNoPeriodo.add(emprestimosAVerificar.getProduto());
+            } else if(dataFinal.after(inicio) && dataFinal.before(fim)){
+                produtosEmprestadosNoPeriodo.add(emprestimosAVerificar.getProduto());
             }
-            if (verificarFinal.after(emprestimoInicio) && verificarFinal.before(emprestimoFinal)) {
-                conflitoDePeriodos = true;
-            }
-            if (emprestimoInicio.after(verificarInicio) && emprestimoFinal.before(verificarFinal)) {
-                conflitoDePeriodos = true;
-            }
-            if (emprestimoFinal.after(verificarInicio) && emprestimoFinal.before(verificarFinal)) {
-                conflitoDePeriodos = true;
-            }
+
         }
-        if (!conflitoDePeriodos) return true;
-        else return false;
+            for (Produtos produtos : produtosEmprestadosNoPeriodo) {
+            produtosDisponiveis.remove(produtos);
+        }
+            return produtosDisponiveis;
     }
 }
