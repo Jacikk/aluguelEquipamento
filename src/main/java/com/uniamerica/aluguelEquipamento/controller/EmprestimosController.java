@@ -105,11 +105,11 @@ public class EmprestimosController {
 
     @PostMapping("/{dataInicial}/{dataFinal}")
     @Deprecated
-    public ResponseEntity<?> verificarPrazo (@PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") Date dataInicio,
+    public ResponseEntity<?> verificarPrazo (@PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") Date dataInicial,
                                              @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd")Date dataFinal) throws Exception{
         try{
             Calendar inicio = Calendar.getInstance();
-            inicio.setTime(dataInicio);
+            inicio.setTime(dataInicial);
 
             Calendar fim= Calendar.getInstance();
             fim.setTime(dataFinal);
