@@ -6,66 +6,93 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
-
 @RestController
-@RequestMapping("/categorias")
+@RequestMapping("/caracteristicas")
 public class CaracteristicasController {
 
+    private final CaracteristicasService caracteristicasService;
+
     @Autowired
-    private CaracteristicasService caracteristicasService;
+    public CaracteristicasController(CaracteristicasService caracteristicasService) {
+        this.caracteristicasService = caracteristicasService;
+    }
 
     @PostMapping
-    public ResponseEntity<?> createCategorias(@RequestBody Caracteristicas caracteristicas) throws Exception{
-        try {
-            if(caracteristicasService.findByName(caracteristicas.getName()) != null){
-                return new ResponseEntity<>("Categoria já existe", null, HttpStatus.BAD_REQUEST);
-
-            }else{
-                Caracteristicas caracteristicasSaved = caracteristicasService.createCategorias(caracteristicas);
-                return new ResponseEntity<>(caracteristicasSaved, null, HttpStatus.CREATED);
-            }
-        }catch(Exception exception){
-            throw new Exception(exception);
+    public ResponseEntity<?> createCaracteristica(@RequestBody Caracteristicas caracteristica) throws Exception {
+        try{
+            Caracteristicas caracteristicasSaved = caracteristicasService.createCaracteristica(caracteristica);
+            return new ResponseEntity<>(caracteristicasSaved, null, HttpStatus.CREATED);
+        }
+        catch (Exception ex){
+            throw new Exception(ex);
         }
     }
 
-    @GetMapping()
-    public ResponseEntity<?> findAll() throws  Exception{
-        try {
-            List<Caracteristicas> list = caracteristicasService.findAll();
-
-            if(!list.isEmpty()){
-                return  new ResponseEntity<>(list,null, HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<?> findAll () throws Exception {
+        try{
+            List<Caracteristicas> allCaracteristicas = caracteristicasService.findAll();
+            if(!allCaracteristicas.isEmpty()) {
+                return new ResponseEntity<>(allCaracteristicas, null, HttpStatus.OK);
             }
-            return new ResponseEntity<>(list, null, HttpStatus.NO_CONTENT);
-
-        }catch (Exception exception){
-            throw new Exception(exception);
+            else return new ResponseEntity<>(allCaracteristicas, null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception ex){
+            throw new Exception(ex);
         }
     }
 
     @GetMapping("/id/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) throws Exception{
-        try {
-            Caracteristicas caracteristicas = caracteristicasService.findById(id);
-            if (caracteristicas != null) return new ResponseEntity<>(caracteristicas, null, HttpStatus.OK);
-            else return new ResponseEntity<>(null, null, HttpStatus.NO_CONTENT);
-        }catch(Exception exception){
-            throw new Exception(exception);
+        try{
+            Caracteristicas carFound = caracteristicasService.findById(id);
+            if(carFound != null) return new ResponseEntity<>(carFound, null, HttpStatus.OK);
+            else return new ResponseEntity<>(carFound, null, HttpStatus.NOT_FOUND);
+        }
+        catch (Exception ex){
+            throw new Exception(ex);
         }
     }
 
-    @GetMapping("/name/{name}")
-    public ResponseEntity<?> findByName(@PathVariable String name) throws Exception{
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<?> findByNome(@PathVariable String nome) throws Exception{
         try{
-            List<Caracteristicas> categorias = caracteristicasService.findByName(name);
-            if(!categorias .isEmpty()) return new ResponseEntity<>(categorias, null, HttpStatus.OK);
-            else return new ResponseEntity<>(null, null, HttpStatus.NO_CONTENT);
-        }catch (Exception exception){
-            throw new Exception(exception);
+            List<Caracteristicas> carFound = caracteristicasService.findByNome(nome);
+            if(carFound != null) return new ResponseEntity<>(carFound, null, HttpStatus.OK);
+            else return new ResponseEntity<>(null, null, HttpStatus.NOT_FOUND);
+        }
+        catch (Exception ex){
+            throw new Exception(ex);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Caracteristicas caracteristica) throws Exception{
+        try{
+            if(caracteristicasService.findById(id) != null) {
+                caracteristica.setId(id);
+                return new ResponseEntity<>(caracteristicasService.update(caracteristica), null, HttpStatus.OK);
+            }
+            else return new ResponseEntity<>(null, null, HttpStatus.NOT_FOUND);
+        }
+        catch (Exception ex){
+            throw new Exception(ex);
+        }
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) throws Exception {
+        try{
+            if(caracteristicasService.findById(id) != null) {
+                caracteristicasService.delete(id);
+                return new ResponseEntity<>(null, null, HttpStatus.OK);
+            }
+            else return new ResponseEntity<>(null, null, HttpStatus.NOT_FOUND);
+        }
+        catch (Exception ex){
+            throw new Exception(ex);
         }
     }
 }
-

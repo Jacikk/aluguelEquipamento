@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CaracteristicasRepository extends JpaRepository<Caracteristicas, Long>{
-    List<Caracteristicas> findAllByName (String name);
-
-    Caracteristicas findByName(String name);
+public interface CaracteristicasRepository extends JpaRepository<Caracteristicas, Long> {
+    List<Caracteristicas> findByNome(String nome);
 }

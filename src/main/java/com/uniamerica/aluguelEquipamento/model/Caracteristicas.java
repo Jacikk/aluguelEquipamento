@@ -10,9 +10,6 @@ public class Caracteristicas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    private Itens item;
-
     private String nome;
 
     public long getId() {
@@ -31,11 +28,4 @@ public class Caracteristicas {
         this.nome = nome;
     }
 
-    public Itens getItem() {
-        return item;
-    }
-
-    public void setItem(Itens item) {
-        this.item = item;
-    }
 }

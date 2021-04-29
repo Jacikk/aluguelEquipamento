@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface DepartamentosRepository extends JpaRepository<Departamentos, Long> {
 
     List<Departamentos> findByNome(String nome);
-    Optional<Departamentos> findById(Long id);
+
 
 }
