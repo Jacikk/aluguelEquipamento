@@ -37,34 +37,37 @@ public class EmprestimosService {
 
         for (Emprestimos emprestimosAVerificar :emprestimosDoBd) {
 
-            Calendar dataInicialNoDb = Calendar.getInstance();
-            dataInicialNoDb.setTime(emprestimosAVerificar.getDataInicial());
+            if(emprestimos.getProduto().getId() == emprestimosAVerificar.getProduto().getId()){
+                Calendar dataInicialNoDb = Calendar.getInstance();
+                dataInicialNoDb.setTime(emprestimosAVerificar.getDataInicial());
 
-            Calendar dataFinalNoDb = Calendar.getInstance();
-            dataFinalNoDb.setTime(emprestimosAVerificar.getDataFinal());
+                Calendar dataFinalNoDb = Calendar.getInstance();
+                dataFinalNoDb.setTime(emprestimosAVerificar.getDataFinal());
 
-            if(dataFinal.equals(dataFinalNoDb) || dataInicial.equals(dataInicialNoDb) || dataFinal.equals(dataInicialNoDb) || dataInicial.equals(dataFinalNoDb)) {
+                if(dataFinal.equals(dataFinalNoDb) || dataInicial.equals(dataInicialNoDb) || dataFinal.equals(dataInicialNoDb) || dataInicial.equals(dataFinalNoDb)) {
 
-                conflictComEmprestimoNoBd = true;
+                    conflictComEmprestimoNoBd = true;
 
-            }else if(dataFinal.after(dataInicialNoDb) && dataFinal.before(dataFinalNoDb)){
+                }else if(dataFinal.after(dataInicialNoDb) && dataFinal.before(dataFinalNoDb)){
 
-                conflictComEmprestimoNoBd = true;
+                    conflictComEmprestimoNoBd = true;
 
-            } else if(dataInicial.after(dataInicialNoDb) && dataInicial.before(dataFinalNoDb)){
+                } else if(dataInicial.after(dataInicialNoDb) && dataInicial.before(dataFinalNoDb)){
 
-                conflictComEmprestimoNoBd = true;
+                    conflictComEmprestimoNoBd = true;
 
-            } else if(dataInicialNoDb.after(dataInicial) && dataInicialNoDb.before(dataFinal)){
+                } else if(dataInicialNoDb.after(dataInicial) && dataInicialNoDb.before(dataFinal)){
 
-                conflictComEmprestimoNoBd = true;
+                    conflictComEmprestimoNoBd = true;
 
-            } else if(dataFinalNoDb.after(dataInicial) && dataFinalNoDb.before(dataFinal)){
+                } else if(dataFinalNoDb.after(dataInicial) && dataFinalNoDb.before(dataFinal)){
 
-                conflictComEmprestimoNoBd = true;
+                    conflictComEmprestimoNoBd = true;
 
+                }
             }
         }
+
         if(conflictComEmprestimoNoBd) return null;
         else return emprestimosRepository.save(emprestimos);
     }
@@ -96,6 +99,7 @@ public class EmprestimosService {
     }
 
     public List<Produtos> verificarPeriodo(Calendar inicio, Calendar fim) {
+
         List<Emprestimos> emprestimos = emprestimosRepository.findAll();
         List<Produtos> produtosEmprestadosNoPeriodo = new ArrayList<>();
         List<Produtos> produtosDisponiveis = produtosService.findAll();
