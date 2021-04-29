@@ -38,6 +38,7 @@ public class EmprestimosService {
         for (Emprestimos emprestimosAVerificar :emprestimosDoBd) {
 
             if(emprestimos.getProduto().getId() == emprestimosAVerificar.getProduto().getId()){
+
                 Calendar dataInicialNoDb = Calendar.getInstance();
                 dataInicialNoDb.setTime(emprestimosAVerificar.getDataInicial());
 
