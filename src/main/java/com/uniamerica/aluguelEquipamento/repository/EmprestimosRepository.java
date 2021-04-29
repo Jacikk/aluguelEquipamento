@@ -1,5 +1,6 @@
 package com.uniamerica.aluguelEquipamento.repository;
 
+import com.uniamerica.aluguelEquipamento.model.Emprestimos;
 import com.uniamerica.aluguelEquipamento.model.Produtos;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -7,11 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProdutosRepository extends JpaRepository<Produtos, Long> {
+public interface EmprestimosRepository extends JpaRepository<Emprestimos, Long>{
 
-        Produtos findByNome(String nome);
-
-        List<Produtos> findAllByNome(String nome);
-
-        List<Produtos> findAllByDisponivel(Boolean disponivel);
+    List<Emprestimos> findByProduto(Produtos produto);
 }

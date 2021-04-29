@@ -10,14 +10,14 @@ public class Produtos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String name;
+    private String nome;
 
     private String descricao;
 
     @ManyToOne
     private Itens item;
 
-    private Boolean disponivel;
+    private Boolean disponivel; //disponivel = está no estoque
 
     @ManyToOne
     private Caracteristicas caracteristica;
@@ -32,11 +32,11 @@ public class Produtos {
     }
 
     public String getName() {
-        return name;
+        return nome;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.nome = name;
     }
 
     public String getDescricao() {

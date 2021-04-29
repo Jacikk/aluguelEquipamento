@@ -19,13 +19,35 @@ public class Emprestimos {
     @ManyToOne
     private Clientes cliente;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date dataInicial;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date dataFinal;
 
+    public Date getDataDevolucao() {
+        return dataDevolucao;
+    }
+
+    public void setDataDevolucao(Date dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
+    }
+
+    public Produtos getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produtos produto) {
+        this.produto = produto;
+    }
+
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date dataDevolucao;
 
     private Boolean retirado;
+
+    @ManyToOne
+    private Produtos produto;
 
     public long getId() {
         return id;

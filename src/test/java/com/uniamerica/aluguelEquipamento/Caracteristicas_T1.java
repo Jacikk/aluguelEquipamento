@@ -43,7 +43,7 @@ public class Caracteristicas_T1 {
 
     }
 
-    @Test
+    /*@Test
     void findByNome(){
 
         Caracteristicas caracteristicas = new Caracteristicas();
@@ -54,6 +54,6 @@ public class Caracteristicas_T1 {
         List<Caracteristicas> result = caracteristicasService.findByNome(caracteristicas.getNome());
 
         Assertions.assertEquals(1, result.size());
-    }
+    }*/
 
 }
