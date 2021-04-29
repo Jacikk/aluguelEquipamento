@@ -16,31 +16,23 @@ public class Itens {
     @ManyToOne
     private Departamentos departamento;
 
-    public List<Caracteristicas> getCaracteristicas() {
-        return caracteristicas;
-    }
-
-    public void setCaracteristicas(List<Caracteristicas> caracteristicas) {
-        this.caracteristicas = caracteristicas;
-    }
-
     @OneToMany
     private List<Caracteristicas> caracteristicas;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName() {
+    public String getNome() {
         return nome;
     }
 
-    public void setName(String name) {
-        this.nome = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public Departamentos getDepartamento() {
@@ -49,5 +41,13 @@ public class Itens {
 
     public void setDepartamento(Departamentos departamento) {
         this.departamento = departamento;
+    }
+
+    public List<Caracteristicas> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public void setCaracteristicas(List<Caracteristicas> caracteristicas) {
+        this.caracteristicas = caracteristicas;
     }
 }
