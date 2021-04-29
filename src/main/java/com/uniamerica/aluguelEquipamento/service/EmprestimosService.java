@@ -43,7 +43,9 @@ public class EmprestimosService {
             Calendar dataFinalNoDb = Calendar.getInstance();
             dataFinalNoDb.setTime(emprestimosAVerificar.getDataFinal());
 
-            if(dataFinal.after(dataInicialNoDb) && dataFinal.before(dataFinalNoDb)){
+            if(dataFinal.equals(dataFinalNoDb) || dataInicial.equals(dataInicialNoDb)) {
+                conflictComEmprestimoNoBd = true;
+            }else if(dataFinal.after(dataInicialNoDb) && dataFinal.before(dataFinalNoDb)){
 
                 conflictComEmprestimoNoBd = true;
 
@@ -104,7 +106,9 @@ public class EmprestimosService {
             Calendar dataFinal = Calendar.getInstance();
             dataFinal.setTime(emprestimosAVerificar.getDataFinal());
 
-            if(fim.after(dataInicial) && fim.before(dataFinal)){
+            if(fim.equals(dataFinal) || inicio.equals(dataInicial)) {
+                produtosEmprestadosNoPeriodo.add(emprestimosAVerificar.getProduto());
+            }else if(fim.after(dataInicial) && fim.before(dataFinal)){
                 produtosEmprestadosNoPeriodo.add(emprestimosAVerificar.getProduto());
             } else if(inicio.after(dataInicial) && inicio.before(dataFinal)){
                 produtosEmprestadosNoPeriodo.add(emprestimosAVerificar.getProduto());
