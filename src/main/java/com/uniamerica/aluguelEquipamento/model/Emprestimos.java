@@ -25,6 +25,15 @@ public class Emprestimos {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date dataFinal;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date dataDevolucao;
+
+    private Boolean retirado;
+
+    @ManyToOne
+    private Produtos produto;
+
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     public Date getDataDevolucao() {
         return dataDevolucao;
     }
@@ -41,13 +50,6 @@ public class Emprestimos {
         this.produto = produto;
     }
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private Date dataDevolucao;
-
-    private Boolean retirado;
-
-    @ManyToOne
-    private Produtos produto;
 
     public long getId() {
         return id;

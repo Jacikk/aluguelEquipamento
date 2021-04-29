@@ -30,6 +30,7 @@ public class ProdutosController {
             throw new Exception(ex);
         }
     }
+    //validar se produtos.caracteristicas esta dentro de itens.caracteristicas
 
     @GetMapping
     public ResponseEntity<?> findAll() throws Exception{

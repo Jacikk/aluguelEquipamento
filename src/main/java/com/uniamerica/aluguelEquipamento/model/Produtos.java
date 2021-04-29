@@ -23,7 +23,6 @@ public class Produtos {
     @ManyToMany
     private List<Caracteristicas> caracteristicas;
 
-
     public long getId() {
         return id;
     }

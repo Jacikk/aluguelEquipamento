@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Atendentes extends Usuarios {
+public class    Atendentes extends Usuarios {
 
     private String senha;
 
