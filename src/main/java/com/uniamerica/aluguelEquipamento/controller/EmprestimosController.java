@@ -132,3 +132,5 @@ public class EmprestimosController {
             throw new Exception(ex);
         }
         */
+
+        //Adicionar funcionalidade de retirado e de inserir data de devolução
