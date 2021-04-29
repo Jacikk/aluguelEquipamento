@@ -43,7 +43,7 @@ public class EmprestimosService {
             Calendar dataFinalNoDb = Calendar.getInstance();
             dataFinalNoDb.setTime(emprestimosAVerificar.getDataFinal());
 
-            if(dataFinal.equals(dataFinalNoDb) || dataInicial.equals(dataInicialNoDb) || dataFinal.equals(dataInicialNoDb)) {
+            if(dataFinal.equals(dataFinalNoDb) || dataInicial.equals(dataInicialNoDb) || dataFinal.equals(dataInicialNoDb) || dataInicial.equals(dataFinalNoDb)) {
 
                 conflictComEmprestimoNoBd = true;
 
