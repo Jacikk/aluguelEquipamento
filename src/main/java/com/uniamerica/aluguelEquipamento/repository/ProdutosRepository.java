@@ -1,6 +1,5 @@
 package com.uniamerica.aluguelEquipamento.repository;
 
-import com.uniamerica.aluguelEquipamento.model.Emprestimos;
 import com.uniamerica.aluguelEquipamento.model.Produtos;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

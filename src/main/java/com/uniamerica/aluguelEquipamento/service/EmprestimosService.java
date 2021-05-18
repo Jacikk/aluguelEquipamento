@@ -20,54 +20,8 @@ public class EmprestimosService {
         this.produtosService = produtosService;
     }
 
-    public Emprestimos create(Emprestimos emprestimos) {
-
-        Calendar dataInicial = Calendar.getInstance();
-        dataInicial.setTime(emprestimos.getDataInicial());
-
-        Calendar dataFinal = Calendar.getInstance();
-        dataFinal.setTime(emprestimos.getDataFinal());
-
-        List<Emprestimos> emprestimosDoBd = emprestimosRepository.findAll();
-
-        boolean conflictComEmprestimoNoBd = false;
-
-        for (Emprestimos emprestimosAVerificar :emprestimosDoBd) {
-
-            if(emprestimos.getProduto().getId() == emprestimosAVerificar.getProduto().getId()){
-
-                Calendar dataInicialNoDb = Calendar.getInstance();
-                dataInicialNoDb.setTime(emprestimosAVerificar.getDataInicial());
-
-                Calendar dataFinalNoDb = Calendar.getInstance();
-                dataFinalNoDb.setTime(emprestimosAVerificar.getDataFinal());
-
-                if(dataFinal.equals(dataFinalNoDb) || dataInicial.equals(dataInicialNoDb) || dataFinal.equals(dataInicialNoDb) || dataInicial.equals(dataFinalNoDb)) {
-
-                    conflictComEmprestimoNoBd = true;
-
-                }else if(dataFinal.after(dataInicialNoDb) && dataFinal.before(dataFinalNoDb)){
-
-                    conflictComEmprestimoNoBd = true;
-
-                } else if(dataInicial.after(dataInicialNoDb) && dataInicial.before(dataFinalNoDb)){
-
-                    conflictComEmprestimoNoBd = true;
-
-                } else if(dataInicialNoDb.after(dataInicial) && dataInicialNoDb.before(dataFinal)){
-
-                    conflictComEmprestimoNoBd = true;
-
-                } else if(dataFinalNoDb.after(dataInicial) && dataFinalNoDb.before(dataFinal)){
-
-                    conflictComEmprestimoNoBd = true;
-
-                }
-            }
-        }
-
-        if(conflictComEmprestimoNoBd) return null;
-        else return emprestimosRepository.save(emprestimos);
+    public Emprestimos create(Emprestimos emprestimo) {
+        return emprestimosRepository.save(emprestimo);
     }
 
     public Emprestimos findById(Long id) {
@@ -99,7 +53,4 @@ public class EmprestimosService {
     public List<Emprestimos> verificarPeriodo(Date inicio, Date fim) {
         return emprestimosRepository.emprestimosPorPeriodo(inicio, fim);
     }
-
-
-
 }
