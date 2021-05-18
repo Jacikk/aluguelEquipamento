@@ -1,10 +1,14 @@
 package com.uniamerica.aluguelEquipamento.service;
 
+import com.uniamerica.aluguelEquipamento.model.Emprestimos;
 import com.uniamerica.aluguelEquipamento.model.Produtos;
+import com.uniamerica.aluguelEquipamento.repository.EmprestimosRepository;
 import com.uniamerica.aluguelEquipamento.repository.ProdutosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,10 +16,13 @@ import java.util.Optional;
 public class ProdutosService {
 
     private final ProdutosRepository produtosRepository;
+    private final EmprestimosRepository emprestimosRepository;
+
 
     @Autowired
-    public ProdutosService(ProdutosRepository produtosRepository) {
+    public ProdutosService(ProdutosRepository produtosRepository, EmprestimosRepository emprestimosRepository) {
         this.produtosRepository = produtosRepository;
+        this.emprestimosRepository = emprestimosRepository;
     }
 
     public Produtos createProduto(Produtos produto) {
@@ -46,5 +53,9 @@ public class ProdutosService {
 
     public void delete(Long id) {
         produtosRepository.deleteById(id);
+    }
+
+    public List<Produtos> verificarProdutosNoPeriodo(Date inicio, Date fim) {
+        return produtosRepository.produtosDisponiveisPorPeriodo(inicio, fim);
     }
 }

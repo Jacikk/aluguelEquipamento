@@ -3,10 +3,12 @@ package com.uniamerica.aluguelEquipamento.controller;
 import com.uniamerica.aluguelEquipamento.model.Produtos;
 import com.uniamerica.aluguelEquipamento.service.ProdutosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -105,6 +107,20 @@ public class ProdutosController {
             else return new ResponseEntity<>(null, null, HttpStatus.NOT_FOUND);
         }
         catch(Exception ex){
+            throw new Exception(ex);
+        }
+    }
+
+    @GetMapping("/{dataInicial}/{dataFinal}")
+    public ResponseEntity<?> verificarPrazo (@PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") Date dataInicial,
+                                             @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd")Date dataFinal) throws Exception{
+        try{
+
+            List<Produtos> listaDeProdutosDisponiveis = produtosService.verificarProdutosNoPeriodo(dataInicial, dataFinal);
+            if(!listaDeProdutosDisponiveis.isEmpty() ) return new ResponseEntity<>(listaDeProdutosDisponiveis, null , HttpStatus.OK);
+            else return new ResponseEntity<>(listaDeProdutosDisponiveis, null , HttpStatus.NO_CONTENT);
+        }
+        catch (Exception ex){
             throw new Exception(ex);
         }
     }
