@@ -46,7 +46,7 @@ public class ProdutosController {
         }
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) throws Exception{
         try {
             Produtos found= produtosService.findById(id);

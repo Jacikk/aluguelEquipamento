@@ -42,7 +42,7 @@ public class DepartamentosController {
         return new ResponseEntity<>(departamentosList, null, HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) throws Exception {
 
         try{

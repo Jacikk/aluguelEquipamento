@@ -45,7 +45,7 @@ public class CaracteristicasController {
         }
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) throws Exception{
         try{
             Caracteristicas carFound = caracteristicasService.findById(id);

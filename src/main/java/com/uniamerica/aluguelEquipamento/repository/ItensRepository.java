@@ -12,4 +12,6 @@ public interface ItensRepository extends JpaRepository<Itens, Long> {
     List<Itens> findByNome(String nome);
 
     List<Itens> findAllByDepartamento(String departamento);
+
+    List<Itens> findAllByNomeContains(String nome);
 }

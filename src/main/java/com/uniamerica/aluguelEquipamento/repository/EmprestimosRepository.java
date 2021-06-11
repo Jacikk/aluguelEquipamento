@@ -20,6 +20,7 @@ public interface EmprestimosRepository extends JpaRepository<Emprestimos, Long>{
                 "or ?1 between e.dataInicial and e.dataFinal " +
                 "or ?2 between e.dataInicial and e.dataFinal"
     )
+
     List<Emprestimos> emprestimosPorPeriodo(Date dataInicial, Date dataFinal);
 
 }
