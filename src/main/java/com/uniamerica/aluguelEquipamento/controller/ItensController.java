@@ -43,7 +43,7 @@ public class ItensController {
         }
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) throws Exception {
         try{
             Itens itemFound = itensService.findById(id);
@@ -58,7 +58,7 @@ public class ItensController {
     @GetMapping("/nome/{nome}")
     public ResponseEntity<?> findByNome(@PathVariable String nome) throws Exception {
         try{
-            List<Itens> itemFound = itensService.findByNome(nome);
+            List<Itens> itemFound = itensService.findAllByNomeContains(nome);
             if(itemFound != null) return new ResponseEntity<>(itemFound, null, HttpStatus.OK);
             else return new ResponseEntity<>(null, null, HttpStatus.NOT_FOUND);
         }

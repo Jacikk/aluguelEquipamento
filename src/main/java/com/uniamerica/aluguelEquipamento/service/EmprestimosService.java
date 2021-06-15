@@ -6,10 +6,7 @@ import com.uniamerica.aluguelEquipamento.repository.EmprestimosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class EmprestimosService {
@@ -23,54 +20,8 @@ public class EmprestimosService {
         this.produtosService = produtosService;
     }
 
-    public Emprestimos create(Emprestimos emprestimos) {
-
-        Calendar dataInicial = Calendar.getInstance();
-        dataInicial.setTime(emprestimos.getDataInicial());
-
-        Calendar dataFinal = Calendar.getInstance();
-        dataFinal.setTime(emprestimos.getDataFinal());
-
-        List<Emprestimos> emprestimosDoBd = emprestimosRepository.findAll();
-
-        boolean conflictComEmprestimoNoBd = false;
-
-        for (Emprestimos emprestimosAVerificar :emprestimosDoBd) {
-
-            if(emprestimos.getProduto().getId() == emprestimosAVerificar.getProduto().getId()){
-
-                Calendar dataInicialNoDb = Calendar.getInstance();
-                dataInicialNoDb.setTime(emprestimosAVerificar.getDataInicial());
-
-                Calendar dataFinalNoDb = Calendar.getInstance();
-                dataFinalNoDb.setTime(emprestimosAVerificar.getDataFinal());
-
-                if(dataFinal.equals(dataFinalNoDb) || dataInicial.equals(dataInicialNoDb) || dataFinal.equals(dataInicialNoDb) || dataInicial.equals(dataFinalNoDb)) {
-
-                    conflictComEmprestimoNoBd = true;
-
-                }else if(dataFinal.after(dataInicialNoDb) && dataFinal.before(dataFinalNoDb)){
-
-                    conflictComEmprestimoNoBd = true;
-
-                } else if(dataInicial.after(dataInicialNoDb) && dataInicial.before(dataFinalNoDb)){
-
-                    conflictComEmprestimoNoBd = true;
-
-                } else if(dataInicialNoDb.after(dataInicial) && dataInicialNoDb.before(dataFinal)){
-
-                    conflictComEmprestimoNoBd = true;
-
-                } else if(dataFinalNoDb.after(dataInicial) && dataFinalNoDb.before(dataFinal)){
-
-                    conflictComEmprestimoNoBd = true;
-
-                }
-            }
-        }
-
-        if(conflictComEmprestimoNoBd) return null;
-        else return emprestimosRepository.save(emprestimos);
+    public Emprestimos create(Emprestimos emprestimo) {
+        return emprestimosRepository.save(emprestimo);
     }
 
     public Emprestimos findById(Long id) {
@@ -99,36 +50,7 @@ public class EmprestimosService {
         return emprestimosRepository.findByProduto(produto);
     }
 
-    public List<Produtos> verificarPeriodo(Calendar inicio, Calendar fim) {
-
-        List<Emprestimos> emprestimos = emprestimosRepository.findAll();
-        List<Produtos> produtosEmprestadosNoPeriodo = new ArrayList<>();
-        List<Produtos> produtosDisponiveis = produtosService.findAll();
-
-        for (Emprestimos emprestimosAVerificar :emprestimos) {
-
-            Calendar dataInicial = Calendar.getInstance();
-            dataInicial.setTime(emprestimosAVerificar.getDataInicial());
-
-            Calendar dataFinal = Calendar.getInstance();
-            dataFinal.setTime(emprestimosAVerificar.getDataFinal());
-
-            if(fim.equals(dataFinal) || inicio.equals(dataInicial)) {
-                produtosEmprestadosNoPeriodo.add(emprestimosAVerificar.getProduto());
-            }else if(fim.after(dataInicial) && fim.before(dataFinal)){
-                produtosEmprestadosNoPeriodo.add(emprestimosAVerificar.getProduto());
-            } else if(inicio.after(dataInicial) && inicio.before(dataFinal)){
-                produtosEmprestadosNoPeriodo.add(emprestimosAVerificar.getProduto());
-            } else if(dataInicial.after(inicio) && dataInicial.before(dataFinal)){
-                produtosEmprestadosNoPeriodo.add(emprestimosAVerificar.getProduto());
-            } else if(dataFinal.after(inicio) && dataFinal.before(fim)){
-                produtosEmprestadosNoPeriodo.add(emprestimosAVerificar.getProduto());
-            }
-
-        }
-            for (Produtos produtos : produtosEmprestadosNoPeriodo) {
-            produtosDisponiveis.remove(produtos);
-        }
-            return produtosDisponiveis;
+    public List<Emprestimos> verificarPeriodo(Date inicio, Date fim) {
+        return emprestimosRepository.emprestimosPorPeriodo(inicio, fim);
     }
 }

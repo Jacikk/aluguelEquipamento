@@ -8,8 +8,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -79,7 +77,7 @@ public class EmprestimosController {
         }
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> findById (@PathVariable Long id) throws Exception {
         try{
             Emprestimos found = emprestimosService.findById(id);
@@ -103,18 +101,12 @@ public class EmprestimosController {
         }
     }
 
-    @PostMapping("/{dataInicial}/{dataFinal}")
-    @Deprecated
-    public ResponseEntity<?> verificarPrazo (@PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") Date dataInicial,
+
+    @GetMapping("/{dataInicial}/{dataFinal}")
+    public ResponseEntity<?> verificarPrazoTeste (@PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") Date dataInicial,
                                              @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd")Date dataFinal) throws Exception{
         try{
-            Calendar inicio = Calendar.getInstance();
-            inicio.setTime(dataInicial);
-
-            Calendar fim= Calendar.getInstance();
-            fim.setTime(dataFinal);
-
-            List<Produtos> listaDeProdutosDisponiveis = emprestimosService.verificarPeriodo(inicio, fim);
+            List<Emprestimos> listaDeProdutosDisponiveis = emprestimosService.verificarPeriodo(dataInicial, dataFinal);
             if(!listaDeProdutosDisponiveis.isEmpty() ) return new ResponseEntity<>(listaDeProdutosDisponiveis, null , HttpStatus.OK);
             else return new ResponseEntity<>(listaDeProdutosDisponiveis, null , HttpStatus.NO_CONTENT);
         }
@@ -134,3 +126,5 @@ public class EmprestimosController {
         */
 
         //Adicionar funcionalidade de retirado e de inserir data de devolução
+
+        //demais consultas

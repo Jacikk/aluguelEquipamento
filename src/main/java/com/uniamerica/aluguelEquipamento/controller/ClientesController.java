@@ -25,7 +25,7 @@ public class ClientesController {
         return new ResponseEntity<>(list, null, HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping(path = "/id/{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<Clientes> findById(@PathVariable Long id) {
         return ResponseEntity.ok(clientesService.findById(id));
     }

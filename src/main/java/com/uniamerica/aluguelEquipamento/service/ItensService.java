@@ -48,4 +48,8 @@ public class ItensService {
     public void delete(Long id) {
         itensRepository.deleteById(id);
     }
+
+    public List<Itens> findAllByNomeContains(String nome) {
+        return itensRepository.findAllByNomeContains(nome);
+    }
 }
